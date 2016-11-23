@@ -9,22 +9,22 @@ class CarsController extends ControllerBase
     public function indexAction()
     {
         $this->persistent->parameters = null;
-       
+
         $numberPage = 1;
         $parameters = $this->session->get('auth');
         $orders = Orders::find(
-                [
-                    [
-                        "id_user" => $parameters,
-                    ]
-                ]
+            [
+            [
+            "id_user" => $parameters,
+            ]
+            ]
             );
 
         $paginator = new PaginatorArray([
             'data' => $orders,
             'limit'=> 10,
             'page' => $numberPage
-        ]);
+            ]);
 
         $this->view->page = $paginator->getPaginate();
     }
@@ -36,18 +36,18 @@ class CarsController extends ControllerBase
 
         $parameters = $this->session->get('auth');
         $orders = Orders::find(
-                [
-                    [
-                        "id_user" => $parameters,
-                    ]
-                ]
+            [
+            [
+            "id_user" => $parameters,
+            ]
+            ]
             );
 
         $paginator = new PaginatorArray([
             'data' => $orders,
             'limit'=> 10,
             'page' => $numberPage
-        ]);
+            ]);
 
         $this->view->page = $paginator->getPaginate();
     }
@@ -68,13 +68,13 @@ class CarsController extends ControllerBase
                 $this->dispatcher->forward([
                     'controller' => "cars",
                     'action' => 'index'
-                ]);
+                    ]);
 
                 return;
             }
 
             $this->view->_id = $orders->_id;
-     
+
             $this->tag->setDefaults(array("_id" => $orders->_id));
             // $this->tag->setDefault("id_user", $orders->id_user);
             $this->tag->setDefault("avto", $orders->avto);
@@ -91,7 +91,7 @@ class CarsController extends ControllerBase
             $this->dispatcher->forward([
                 'controller' => "cars",
                 'action' => 'index'
-            ]);
+                ]);
 
             return;
         }
@@ -106,7 +106,7 @@ class CarsController extends ControllerBase
             $this->dispatcher->forward([
                 'controller' => "cars",
                 'action' => 'index'
-            ]);
+                ]);
 
             return;
         }
@@ -128,7 +128,7 @@ class CarsController extends ControllerBase
                 'controller' => "cars",
                 'action' => 'edit',
                 'params' => [$orders->_id]
-            ]);
+                ]);
 
             return;
         }
@@ -138,49 +138,78 @@ class CarsController extends ControllerBase
         $this->dispatcher->forward([
             'controller' => "cars",
             'action' => 'index'
-        ]);
+            ]);
     }
 
     public function createAction() 
     {
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
-                'controller' => "cars",
+                'controller' => "orders",
                 'action' => 'index'
-            ]);
+                ]);
 
             return;
         }
 
-        $orders = new Orders();
-        $orders->id_user = $this->session->get('auth');
-        // $orders->id_user = $this->request->getPost("id_user");
-        $orders->avto = $this->request->getPost("avto");
-        $orders->price = $this->request->getPost("price");
-        $orders->img = $this->request->getPost("img");
-        
 
-        if (!$orders->save()) {
-            echo 'Failed to insert into the database' . "\n";
-            foreach ($orders->getMessages() as $message) {
-                $this->flash->error($message);
+
+        if ($this->request->isPost()) {
+            if (!empty($this->request->getPost('avto')) ) {
+                $avto = $this->request->getPost('avto');            
+            }
+            if (!empty($this->request->getPost('price')) ) {
+                $price = $this->request->getPost('price');          
+            }
+            if (!empty($this->request->getPost('img')) ) {
+                $img = $this->request->getPost('img');          
             }
 
-            $this->dispatcher->forward([
-                'controller' => "cars",
-                'action' => 'new'
-            ]);
 
-            return;
+            if (isset($avto) && isset($price) && isset($img))
+            {
+                $orders = new Orders();
+                $orders->id_user = $this->session->get('auth');
+                $orders->avto = $avto;
+                $orders->price = $price;
+                $orders->img = $img;
+                
+
+                if (!$orders->save()) {
+                    echo 'Failed to insert into the database' . "\n";
+                    foreach ($orders->getMessages() as $message) {
+                        $this->flash->error($message);
+                    }
+
+                    $this->dispatcher->forward([
+                        'controller' => "cars",
+                        'action' => 'new'
+                        ]);
+
+                    return;
+                }
+
+                $this->flash->success("Автомобиль успешно добавлен");
+
+                $this->dispatcher->forward([
+                    'controller' => "cars",
+                    'action' => 'index'
+                    ]);
+
+
+            }
+            else {
+                $this->flash->error('Заполните все поля');
+                return $this->dispatcher->forward(
+                    [
+                    "controller" => "cars",
+                    "action"     => "new",
+                    ]
+                    );
+            }
         }
 
-        $this->flash->success("Автомобиль успешно добавлен");
-        $this->dispatcher->forward([
-            'controller' => "cars",
-            'action' => 'index'
-        ]);
     }
-
 
     public function deleteAction($_id)
     {
@@ -191,7 +220,7 @@ class CarsController extends ControllerBase
             $this->dispatcher->forward([
                 'controller' => "cars",
                 'action' => 'index'
-            ]);
+                ]);
 
             return;
         }
@@ -205,7 +234,7 @@ class CarsController extends ControllerBase
             $this->dispatcher->forward([
                 'controller' => "cars",
                 'action' => 'index'
-            ]);
+                ]);
 
             return;
         }
@@ -214,7 +243,7 @@ class CarsController extends ControllerBase
         $this->dispatcher->forward([
             'controller' => "cars",
             'action' => "index"
-        ]);
+            ]);
     }
 
     public function initialize()

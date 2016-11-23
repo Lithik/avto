@@ -181,7 +181,7 @@ class OrdersController extends ControllerBase
 		]);
 	}
 
-	public function createAction() //работает
+	public function createAction()
 	{
 		if (!$this->request->isPost()) {
 			$this->dispatcher->forward([
@@ -192,34 +192,63 @@ class OrdersController extends ControllerBase
 			return;
 		}
 
-		$orders = new Orders();
-		$orders->id_user = $this->session->get('id');
-		// $orders->id_user = $this->request->getPost("id_user");
-		$orders->avto = $this->request->getPost("avto");
-		$orders->price = $this->request->getPost("price");
-		$orders->img = $this->request->getPost("img");
-		
 
-		if (!$orders->save()) {
-			echo 'Failed to insert into the database' . "\n";
-			foreach ($orders->getMessages() as $message) {
-				$this->flash->error($message);
+
+		if ($this->request->isPost()) {
+			if (!empty($this->request->getPost('avto')) ) {
+				$avto = $this->request->getPost('avto');			
+			}
+			if (!empty($this->request->getPost('price')) ) {
+				$price = $this->request->getPost('price');			
+			}
+			if (!empty($this->request->getPost('img')) ) {
+				$img = $this->request->getPost('img');			
 			}
 
-			$this->dispatcher->forward([
-				'controller' => "orders",
-				'action' => 'new'
-			]);
 
-			return;
+			if (isset($avto) && isset($price) && isset($img))
+			{
+				$orders = new Orders();
+				$orders->id_user = $this->session->get('auth');
+				$orders->avto = $avto;
+				$orders->price = $price;
+				$orders->img = $img;
+				
+
+				if (!$orders->save()) {
+					echo 'Failed to insert into the database' . "\n";
+					foreach ($orders->getMessages() as $message) {
+						$this->flash->error($message);
+					}
+
+					$this->dispatcher->forward([
+						'controller' => "orders",
+						'action' => 'new'
+					]);
+
+					return;
+				}
+
+				$this->flash->success("Автомобиль успешно добавлен");
+
+				$this->dispatcher->forward([
+					'controller' => "orders",
+					'action' => 'index'
+				]);
+
+
+			}
+			else {
+				$this->flash->error('Заполните все поля');
+				return $this->dispatcher->forward(
+							[
+								"controller" => "orders",
+								"action"     => "new",
+							]
+						);
+			}
 		}
 
-		$this->flash->success("Автомобиль успешно добавлен");
-
-		$this->dispatcher->forward([
-			'controller' => "orders",
-			'action' => 'index'
-		]);
 	}
 
 

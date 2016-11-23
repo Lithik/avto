@@ -13,9 +13,9 @@
 </div>
 
 <div class="page-header">
-    <h1>
+    <h3>
         Создание пользователя
-    </h1>
+    </h3>
 </div>
 
 <?php echo $this->getContent(); ?>
@@ -31,36 +31,36 @@
 ?>
 
 <div class="form-group">
-    <label for="fieldEmail" class="col-sm-2 control-label">Email</label>
-    <div class="col-sm-10">
+    <label for="fieldEmail" class="col-sm-4 control-label">Email</label>
+    <div class="col-sm-8">
         <?php echo $this->tag->textField(["email", "size" => 30, "class" => "form-control", "id" => "fieldEmail"]) ?>
     </div>
 </div>
 
 <div class="form-group">
-    <label for="fieldPass" class="col-sm-2 control-label">Pass</label>
-    <div class="col-sm-10">
+    <label for="fieldPass" class="col-sm-4 control-label">Пароль</label>
+    <div class="col-sm-8">
         <?php echo $this->tag->textField(["pass", "size" => 30, "class" => "form-control", "id" => "fieldPass"]) ?>
     </div>
 </div>
 
 <div class="form-group">
-    <label for="fieldRoleId" class="col-sm-2 control-label">Role</label>
-    <div class="col-sm-10">
+    <label for="fieldRoleId" class="col-sm-4 control-label">Role (1-админ/2-пользователь)</label>
+    <div class="col-sm-8">
         <?php echo $this->tag->textField(["role_id", "type" => "number", "class" => "form-control", "id" => "fieldRoleId"]) ?>
     </div>
 </div>
 
 <div class="form-group">
-    <label for="fieldActive" class="col-sm-2 control-label">Active</label>
-    <div class="col-sm-10">
+    <label for="fieldActive" class="col-sm-4 control-label">Active (1-подтвержденный/0-не подтвержденный)</label>
+    <div class="col-sm-8">
         <?php echo $this->tag->textField(["active", "type" => "number", "class" => "form-control", "id" => "fieldActive"]) ?>
     </div>
 </div>
 
 
 <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
+    <div class="col-sm-offset-4 col-sm-8">
         <?php echo $this->tag->submitButton(["Save", "class" => "btn btn-default"]) ?>
     </div>
 </div>

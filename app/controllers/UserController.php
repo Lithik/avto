@@ -158,7 +158,7 @@ class UserController extends ControllerBase
 			return;
 		}
 
-		$this->flash->success("user was updated successfully");
+		$this->flash->success("Изменения внесены успешно!");
 
 		$this->dispatcher->forward([
 			'controller' => "user",
@@ -206,7 +206,7 @@ class UserController extends ControllerBase
 			return;
 		}
 
-		$this->flash->success("user was created successfully");
+		$this->flash->success("Новый пользователь создан успешно!");
 
 		$this->dispatcher->forward([
 			'controller' => "user",
@@ -218,7 +218,7 @@ class UserController extends ControllerBase
 	{
 		$user = User::findById($_id);
 		if (!$user) {
-			$this->flash->error("user was not found");
+			$this->flash->error("Пользователь не найден!");
 
 			$this->dispatcher->forward([
 				'controller' => "user",
@@ -242,7 +242,7 @@ class UserController extends ControllerBase
 			return;
 		}
 
-		$this->flash->success("user was deleted successfully");
+		$this->flash->success("Пользователь удален успешно!");
 
 		$this->dispatcher->forward([
 			'controller' => "user",
@@ -284,7 +284,7 @@ class UserController extends ControllerBase
 	{
 		$user = User::findById($_id);
 		if (!$user) {
-			$this->flash->error("user was not found");
+			$this->flash->error("Пользователь не найден");
 			$this->dispatcher->forward([
 				'controller' => "user",
 				'action' => 'newuser'

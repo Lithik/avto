@@ -1,5 +1,9 @@
 <?php
-
+use Phalcon\Forms\Form;
+use Phalcon\Forms\Element\Text;
+use Phalcon\Forms\Element\Password;
+use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\Email;
 /**
  * SessionController
  *
@@ -64,6 +68,8 @@ class RegisterController extends ControllerBase
 					$this->flash->error('Пароли не совпадают');
 				}
 			}
+
+			
 			else {
 				$this->flash->error('Заполните все поля');
 			}

@@ -5,114 +5,112 @@
 ?>
 <?php use ULogin\Auth; ?>
 
+<!-- <div class="row">
+	<nav>
+		<ul class="pager">
+			<li class="previous"><?php echo $this->tag->linkTo(["session", "Страница авторизации"]) ?></li>
+		</ul>
+	</nav>
+</div> -->
 <div class="row">
-    <nav>
-        <ul class="pager">
-            <li class="previous"><?php echo $this->tag->linkTo(["session", "Страница авторизации"]) ?></li>
-        </ul>
-    </nav>
-</div>
-<div class="row">
 
-    <div class="col-md-6">
-        <div class="page-header">
-            <h2>
-                Вход
-            </h2>
-        </div>
+	<div class="col-md-6">
+		<div class="page-header">
+			<h3>
+				Вход
+			</h3>
+		</div>
 
-        <?php echo $this->getContent(); ?>
+		<?php echo $this->getContent(); ?>
 
-        <?php
-            echo $this->tag->form(
-                [
-                    "session/start",
-                    "autocomplete" => "off",
-                    "class" => "form-horizontal"
-                ]
-            );
-        ?>
-
-
-
-
-<?php     
-
-    $ulogin = new ULogin\Auth;
-    echo $ulogin->setProviders([
-                       'facebook'     =>  true,   // show inline
-                       'twitter' =>  true,   // show inline
-                       'linkedin'      =>  true,  // show in drop down
-                       'google'        =>  false,  // show in drop down
-                       'yandex'        =>  false,   // show inline
-    ])->setType('panel')->getForm(); 
-   
-    // echo $ulogin->setUrl('/store/')->getForm();
-    // echo $ulogin->getToken();
-            
-
-// echo $ulogin->getToken();
-    // $polzovatel=$ulogin->getUser();
-    // var_dump($polzovatel);
-
-    
-    // var_dump($ulogin->getEmail()); //дописал
-    $ulogin->logout();
- 
-?> 
-
-ID: <?php var_dump($this->session->get('auth')); ?>
-ROLE_ID: <?php var_dump($this->session->get('role_id')); ?>
-E-mail: <?php var_dump($this->session->get('email')); ?>
-Uid: <?php var_dump($this->session->get('uid')); ?>
-
-Network: <?php var_dump($this->session->get('network')); ?>
-First name: <?php var_dump($this->session->get('first_name')); ?>
-Last name: <?php var_dump($this->session->get('last_name')); ?>
+		<?php
+		echo $this->tag->form(
+			[
+			"session/start",
+			"autocomplete" => "off",
+			"class" => "form-horizontal"
+			]
+			);
+			?>
 
 
 
 
 
+			<br>
+			<div class="form-group">
+				<label for="fieldAvto" class="col-sm-2 control-label">Логин</label>
+				<div class="col-sm-10">
+					<?php echo $this->tag->emailField(["email", "size" => 30, "class" => "form-control", "id" => "fieldAvto"]) ?>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="fieldPrice" class="col-sm-2 control-label">Пароль</label>
+				<div class="col-sm-10">
+					<?php echo $this->tag->passwordField (["pass", "class" => "form-control", "id" => "fieldPrice"]) ?>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<?php echo $this->tag->submitButton(["Войти", "class" => "btn btn-primary btn-large"]) ?>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<?php     
+
+					$ulogin = new ULogin\Auth;
+					echo $ulogin->setProviders([
+				                       'facebook'     =>  true,   // show inline
+				                       'twitter' =>  true,   // show inline
+				                       'linkedin'      =>  true,  // show in drop down
+				                       'google'        =>  false,  // show in drop down
+				                       'yandex'        =>  false,   // show inline
+				                       ])->setType('panel')->getForm(); 
+
+				    // echo $ulogin->setUrl('/store/')->getForm();
+				    // echo $ulogin->getToken();
 
 
-        <div class="form-group">
-            <label for="fieldAvto" class="col-sm-2 control-label">Логин</label>
-            <div class="col-sm-10">
-                <?php echo $this->tag->emailField(["email", "size" => 30, "class" => "form-control", "id" => "fieldAvto"]) ?>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="fieldPrice" class="col-sm-2 control-label">Пароль</label>
-            <div class="col-sm-10">
-                <?php echo $this->tag->passwordField (["pass", "class" => "form-control", "id" => "fieldPrice"]) ?>
-            </div>
-        </div>
+				    // echo $ulogin->getToken();
+				    // $polzovatel=$ulogin->getUser();
+				    // var_dump($polzovatel);
 
 
+				    // var_dump($ulogin->getEmail()); //дописал
+					$ulogin->logout();
+
+					?> 
+<!-- 					ID: <?php var_dump($this->session->get('auth')); ?>
+					ROLE_ID: <?php var_dump($this->session->get('role_id')); ?>
+					E-mail: <?php var_dump($this->session->get('email')); ?>
+					Uid: <?php var_dump($this->session->get('uid')); ?>
+					Network: <?php var_dump($this->session->get('network')); ?>
+					First name: <?php var_dump($this->session->get('first_name')); ?>
+					Last name: <?php var_dump($this->session->get('last_name')); ?>  -->
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="page-header">
+				<h2>Если у вас еще неут акаунта,<br> Вы можете зарегистрироваться</h2>
+			</div>
+			<div class="clearfix center">
+				<div class="col-sm-offset-2 col-sm-10">
+					<?php echo $this->tag->linkTo(["register", "Зарегистрироваться",  "class" => "btn btn-primary btn-large"]) ?>
+				</div>
+			</div>
+		</div>
+
+	</div>
 
 
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <?php echo $this->tag->submitButton(["Войти", "class" => "btn btn-primary btn-large"]) ?>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-6">
-            <div class="page-header">
-            <h2>Если у вас еще неут акаунта,<br> Вы можете зарегистрироваться</h2>
-        </div>
 
 
 
-        <div class="clearfix center">
-            <div class="col-sm-offset-2 col-sm-10">
-                <?php echo $this->tag->linkTo(["register", "Зарегистрироваться",  "class" => "btn btn-primary btn-large"]) ?>
-            </div>
-        </div>
-    </div>
 
-</div>
-        <?php echo $this->tag->endForm(); ?>
+	<?php echo $this->tag->endForm(); ?>
