@@ -2,9 +2,9 @@
 use Phalcon\Flash;
 use Phalcon\Session;
 /**
- * SessionController
+ * Контроллер сессии
  *
- * Allows to authenticate users
+ * Авторизация пользователей, запись в сессию
  */
 class SessionController extends ControllerBase
 {

@@ -1,14 +1,11 @@
 <?php
- 
 use Phalcon\Mvc\Controller;
 use Phalcon\Paginator\Adapter\NativeArray as PaginatorArray; //Пагинатор для массива данных (MongoDB)
 
 
 class CarsController extends ControllerBase
 {
-    /**
-     * Index action
-     */
+
     public function indexAction()
     {
         $this->persistent->parameters = null;

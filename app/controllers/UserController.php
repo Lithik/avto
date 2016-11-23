@@ -79,9 +79,6 @@ class UserController extends ControllerBase
 
 	// }
 
-	/**
-	 * Displays the creation form
-	 */
 	public function newAction()
 	{
 
@@ -132,7 +129,6 @@ class UserController extends ControllerBase
 
 		if (!$user) {
 			$this->flash->error("user does not exist " . $_id);
-
 			$this->dispatcher->forward([
 				'controller' => "user",
 				'action' => 'index'
