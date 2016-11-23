@@ -1,0 +1,130 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+use Phalcon\Tag; ?>
+
+<div class="page-header">
+    <h2>
+        Все пользователи
+    </h2>
+    <p>
+        <nav>
+            <ul class="pager">
+                <li class="previous"><?php echo $this->tag->linkTo(["user/new", "Создать пользователя"]); ?></li>           
+            </ul>
+        </nav>        
+    </p>
+</div>
+
+
+<?php echo $this->getContent() ?>
+
+<div class="row">
+    <table class="table table-bordered table_user">
+        <thead>
+            <tr>
+                <th>Id пользователя</th>
+                <th>E-mail пользователя</th>            
+                <th>Роль</th>
+                <th>Active</th>
+                <th>Uid</th>
+                <th>Соц сеть</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($page->items as $user): ?>
+            <tr>
+                <td><?php echo $user->_id ?></td>
+            <td><?php echo $user->email ?></td>            
+            <td><?php echo $user->role_id ?></td>
+            <td><?php echo $user->active ?></td>
+
+            <td><?php echo $user->uid ?></td>
+            <td><?php echo $user->social ?></td>
+            <td><?php echo $user->first_name ?></td>
+            <td><?php echo $user->last_name ?></td>
+
+                <td><?php echo $this->tag->linkTo(["user/edit/" . $user->_id, "Редактировать"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["user/delete/" . $user->_id, "Удалить"]); ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <div class="col-sm-1">
+        <p class="pagination" style="line-height: 1.42857;padding: 6px 12px;">
+            <?php echo $page->current, "/", $page->total_pages ?>
+        </p>
+    </div>
+    <div class="col-sm-11">
+        <nav>
+            <ul class="pagination">
+                <li><?php echo $this->tag->linkTo("user", "Первая") ?></li>
+                <li><?php echo $this->tag->linkTo("user?page=" . $page->before, "Предыдущая") ?></li>
+                <li><?php echo $this->tag->linkTo("user?page=" . $page->next, "Следующая") ?></li>
+                <li><?php echo $this->tag->linkTo("user?page=" . $page->last, "Последняя") ?></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- 
+<?php
+    echo $this->tag->form(
+        [
+            "user/search",
+            "autocomplete" => "off",
+            "class" => "form-horizontal"
+        ]
+    );
+?>
+
+<div class="form-group">
+    <label for="fieldId" class="col-sm-2 control-label">Id</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["id", "type" => "number", "class" => "form-control", "id" => "fieldId"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldEmail" class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["email", "size" => 30, "class" => "form-control", "id" => "fieldEmail"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldPass" class="col-sm-2 control-label">Pass</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["pass", "size" => 30, "class" => "form-control", "id" => "fieldPass"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldRoleId" class="col-sm-2 control-label">Role</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["role_id", "type" => "number", "class" => "form-control", "id" => "fieldRoleId"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldActive" class="col-sm-2 control-label">Active</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["active", "type" => "number", "class" => "form-control", "id" => "fieldActive"]) ?>
+    </div>
+</div>
+
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <?php echo $this->tag->submitButton(["Search", "class" => "btn btn-default"]) ?>
+    </div>
+</div>
+
+<?php echo $this->tag->endForm(); ?> -->

@@ -1,0 +1,67 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+
+
+use Phalcon\Tag; ?>
+
+
+<div class="row">
+	<nav>
+		<ul class="pager">
+			<li class="next"><?php echo $this->tag->linkTo(["admin", "Админпанель "]); ?></li>
+			
+			<li class="next"><?php echo $this->tag->linkTo(["session", "СЕССИЯ "]); ?></li>
+			<li class="next"><?php echo $this->tag->linkTo(["orders", "Страница автомобилей"]); ?></li> 
+
+			
+			
+			
+			
+		</ul>
+	</nav>
+</div>
+<?php
+echo "<h2>Главная страница</h2>";
+echo PHP_EOL;
+echo PHP_EOL;
+?>
+
+
+<?php echo $this->getContent() ?>
+
+<div class="row">
+	
+	<?php foreach ($page->items as $order): ?>
+		<div class="list col-xs-12">
+			
+			<h4><?php echo $order->avto ?></h4>
+			<hr>
+			<p><i><b>Цена:</b><?php echo $order->price ?></i></p>
+			<div class="image"><?php echo $this->tag->image("img/$order->img"); ?></div>
+
+		</div>
+	<?php endforeach; ?>
+	
+</div>
+<div class="row">
+	<div class="col-sm-1">
+		<p class="pagination" style="line-height: 1.42857;padding: 6px 12px;">
+			<?php echo $page->current, "/", $page->total_pages ?>
+		</p>
+	</div>
+	<div class="col-sm-11">
+		<nav>
+			<ul class="pagination">
+				<li><?php echo $this->tag->linkTo(".", "Первая") ?></li>
+				<li><?php echo $this->tag->linkTo("?page=" . $page->before, "Предыдущая") ?></li>
+				<li><?php echo $this->tag->linkTo("?page=" . $page->next, "Следующая") ?></li>
+				<li><?php echo $this->tag->linkTo("?page=" . $page->last, "Последняя") ?></li>
+			</ul>
+		</nav>
+	</div>
+</div> 
+
+
+
