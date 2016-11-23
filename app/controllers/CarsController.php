@@ -1,9 +1,8 @@
 <?php
  
-// use Phalcon\Paginator\Adapter\Model as Paginator;
 use Phalcon\Mvc\Controller;
 use Phalcon\Paginator\Adapter\NativeArray as PaginatorArray; //Пагинатор для массива данных (MongoDB)
-// use Phalcon\Mvc\Model\Criteria;
+
 
 class CarsController extends ControllerBase
 {
@@ -15,21 +14,7 @@ class CarsController extends ControllerBase
         $this->persistent->parameters = null;
        
         $numberPage = 1;
-        // if ($this->request->isPost()) {            
-        //     $this->persistent->parameters = $query->getParams();
-        // } 
-        // else {
-           
-            // $numberPage = $this->request->getQuery("page", "int");
-
-        // }
         $parameters = $this->session->get('auth');
-        // $parameters = $this->persistent->parameters;
-        // if (!is_array($parameters)) {
-        //     $parameters = [];
-        // }
-        // $parameters["orders"] = "_id";
-        //если нету записей - 
         $orders = Orders::find(
                 [
                     [
@@ -37,7 +22,6 @@ class CarsController extends ControllerBase
                     ]
                 ]
             );
-
 
         $paginator = new PaginatorArray([
             'data' => $orders,
@@ -50,24 +34,10 @@ class CarsController extends ControllerBase
 
     public function myAction()
     {
-        $this->persistent->parameters = null;
-       
+        $this->persistent->parameters = null;       
         $numberPage = 1;
-        // if ($this->request->isPost()) {            
-        //     $this->persistent->parameters = $query->getParams();
-        // } 
-        // else {
-           
-            // $numberPage = $this->request->getQuery("page", "int");
 
-        // }
         $parameters = $this->session->get('auth');
-        // $parameters = $this->persistent->parameters;
-        // if (!is_array($parameters)) {
-        //     $parameters = [];
-        // }
-        // $parameters["orders"] = "_id";
-        //если нету записей - 
         $orders = Orders::find(
                 [
                     [
@@ -75,7 +45,6 @@ class CarsController extends ControllerBase
                     ]
                 ]
             );
-
 
         $paginator = new PaginatorArray([
             'data' => $orders,
@@ -86,20 +55,11 @@ class CarsController extends ControllerBase
         $this->view->page = $paginator->getPaginate();
     }
 
-
-    /**
-     * Displays the creation form
-     */
     public function newAction()
     {
 
     }
 
-    /**
-     * Edits a order
-     *
-     * @param string $id
-     */
     public function editAction($_id)
     {
         if (!$this->request->isPost()) {
@@ -127,10 +87,6 @@ class CarsController extends ControllerBase
         }
     }
 
-    /**
-     * Saves a orders edited
-     *
-     */
     public function saveAction()
     {
 
@@ -188,10 +144,7 @@ class CarsController extends ControllerBase
         ]);
     }
 
-    /**
-     * Creates a new order
-     */
-    public function createAction() //работает
+    public function createAction() 
     {
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
@@ -225,7 +178,6 @@ class CarsController extends ControllerBase
         }
 
         $this->flash->success("Автомобиль успешно добавлен");
-
         $this->dispatcher->forward([
             'controller' => "cars",
             'action' => 'index'
@@ -233,12 +185,6 @@ class CarsController extends ControllerBase
     }
 
 
-
-    /**
-     * Deletes a orders
-     *
-     * @param string $id
-     */
     public function deleteAction($_id)
     {
         $orders = Orders::findById($_id);
@@ -268,7 +214,6 @@ class CarsController extends ControllerBase
         }
 
         $this->flash->success("Автомобиль успешно удален!");
-
         $this->dispatcher->forward([
             'controller' => "cars",
             'action' => "index"
@@ -281,6 +226,5 @@ class CarsController extends ControllerBase
         $this->tag->setTitle("Мои автомобили");
         parent::initialize();
     }
-
 
 }
